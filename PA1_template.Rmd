@@ -24,12 +24,21 @@ DailySteps<-aggregate(steps~date,Dataset, sum)
 #Making histogram using plot
  plot(DailySteps$steps~DailySteps$date, type = "h", lwd = 5, xlab = "Date", ylab = "Steps", main = "Histogram of the total number of steps taken each day")
 ```
+
 ## Calculating What mean total number of steps taken per day is:
-
-
+```{r}
+MeanSteps<-mean(DailySteps$steps)
+MedianSteps<-median(DailySteps$steps, rm.na = TRUE)
+```
 
 
 ## What is the average daily activity pattern?
+```{r}
+#Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+AvgIntervalSteps<-aggregate(steps~interval, Dataset, mean)
+plot(AvgIntervalSteps, type = "l", lwd = 2, xlab = "Interval", ylab = "Avg Steps per Interval", 
+     main = "Average number of steps taken of each interval")
+```
 
 
 
