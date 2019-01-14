@@ -24,7 +24,6 @@ DailySteps<-aggregate(steps~date,Dataset, sum)
 #Making histogram using plot
  plot(DailySteps$steps~DailySteps$date, type = "h", lwd = 5, xlab = "Date", ylab = "Steps", main = "Histogram of the total number of steps taken each day")
 ```
-
 ## Calculating What mean total number of steps taken per day is:
 
 
