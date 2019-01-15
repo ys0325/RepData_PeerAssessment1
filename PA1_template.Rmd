@@ -38,10 +38,10 @@ MedianSteps<-median(DailySteps$steps, rm.na = TRUE)
 AvgIntervalSteps<-aggregate(steps~interval, Dataset, mean)
 plot(AvgIntervalSteps, type = "l", lwd = 2, xlab = "Interval", ylab = "Avg Steps per Interval", 
      main = "Average number of steps taken of each interval")
+#Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+AvgIntervalSteps[which.max(AvgIntervalSteps$steps),]
+#Interval No. 835 has the maximum numbers of steps across all the days.
 ```
-
-
-
 ## Imputing missing values
 
 
