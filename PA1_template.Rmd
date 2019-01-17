@@ -43,7 +43,34 @@ AvgIntervalSteps[which.max(AvgIntervalSteps$steps),]
 #Interval No. 835 has the maximum numbers of steps across all the days.
 ```
 ## Imputing missing values
-
-
-
+```{r}
+#Calculate and report the total number of missing values in the dataset
+sum(is.na(Dataset$steps))
+#Devise a strategy for filling in all of the missing values in the dataset
+#The strategy chosen for missing values is replacing missing values with the mean of all existing values in 5-minute interval, since the case is a time series one and steps vary with differnt intervals
+#loading package imputeTS(package"imputeTS" already installed)
+library(imputeTS)
+#Fill in missing values in the dataset and create new dataset
+NewDataset<-na.interpolation(Dataset)
+#Aggregate daily steps and create histogram
+DailySteps1<-aggregate(steps~date,NewDataset, sum)
+plot(DailySteps1$steps~DailySteps1$date, type = "h", lwd = 5, xlab = "Date", ylab = "Steps", main = "Histogram of imputed total number of steps taken each day")
+#Calculate new mean and median
+MeanSteps1<-mean(DailySteps1$steps)
+MeanSteps1
+MedianSteps1<-median(DailySteps1$steps)
+MedianSteps1
+```
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r}
+library(lattice)
+#Create a new factor variable in the dataset with two levels – "weekday" and "weekend"
+DataWithDay<-NewDataset
+DataWithDay$day<-weekdays(DataWithDay$date)
+DataWithDay$type[DataWithDay$day != "Saturday"& DataWithDay$day != "Sunday"] = "Weekday"
+DataWithDay$type[DataWithDay$day == "Saturday"| DataWithDay$day == "Sunday"] = "Weekend"
+#get average steps per interval in weekdays and weekends, respectively
+DayType<-aggregate(steps~interval+type, DataWithDay, mean)
+#Create the panel comparing weekdays and weekends
+xyplot(steps~interval|type, DayType, type = "l", ylab = "Number of Steps", lwd = 2,layout = c(1,2))
+```
