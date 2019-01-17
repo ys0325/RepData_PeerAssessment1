@@ -29,8 +29,10 @@ DailySteps<-aggregate(steps~date,Dataset1, sum)
 ```{r}
 MeanSteps<-mean(DailySteps$steps)
 MeanSteps
+#Mean for steps is 10766.19
 MedianSteps<-median(DailySteps$steps, rm.na = TRUE)
 MedianSteps
+#Median for steps is 10765
 ```
 
 
