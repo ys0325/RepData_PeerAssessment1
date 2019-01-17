@@ -77,4 +77,6 @@ DataWithDay$type[DataWithDay$day == "Saturday"| DataWithDay$day == "Sunday"] = "
 DayType<-aggregate(steps~interval+type, DataWithDay, mean)
 #Create the panel comparing weekdays and weekends
 xyplot(steps~interval|type, DayType, type = "l", ylab = "Number of Steps", lwd = 2,layout = c(1,2))
+library(knitr)
+knit2html("PA1_template.Rmd")
 ```
